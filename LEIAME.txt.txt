@@ -1,0 +1,24 @@
+Arquivo LEIAME para ajuda na compilação dos códigos do trabalho de Estruturas de Dados
+
+Este arquivo tem como objetivo a explicação de como executar cada um desses algoritmos na sua máquina.
+
+Pré-requisitos:
+-Possuir compilador de linguagem C (gcc)
+-Ter baixado na sua máquina o gnuplot
+
+Para todos os algoritmos, os comandos de compilação e execução são os mesmos:
+1. Compilação do algoritmo:
+   gcc -c -Wall "nome_do_algoritmo.c"
+
+2. Compilação do teste:
+   gcc -c "nome_para_o_teste.c" ."nome_do_algoritmo.o"
+
+3. Execução do algoritmo para gerar o arquivo executável tipo TXT:
+   ./"nome_do_algoritmo.o"
+
+4. Plotagem do gráfico usando Gnuplot:
+   No terminal, após gerar o arquivo TXT, use o comando:
+   gnuplot
+   plot "nome_do_arquivo.txt" w l
+
+Meu sistema operacional utilizado foi Windows, não sei se muda para outros sistemas operacionais, acredito que não.
