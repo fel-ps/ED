@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+#include <sys/time.h>
 
 // Função para realizar o Insertion Sort
 void insertionSort(int arr[], int n) {
@@ -19,27 +19,39 @@ void insertionSort(int arr[], int n) {
 int main() {
     int size, i;
     FILE *file;
-    clock_t start, end;
+    struct timeval start, end;
+    long seconds, useconds;
     double cpu_time_used;
 
     // Abre o arquivo para escrita
     file = fopen("insertion_b_time.txt", "w");
+    if (file == NULL) {
+        fprintf(stderr, "Erro ao abrir o arquivo.\n");
+        return 1;
+    }
 
     // Loop para diferentes tamanhos de vetor
     for (size = 100; size <= 10000; size += 100) {
         int *arr = (int *)malloc(size * sizeof(int));
+        if (arr == NULL) {
+            fprintf(stderr, "Erro ao alocar memória.\n");
+            fclose(file);
+            return 1;
+        }
 
         // Melhor caso: vetor já ordenado
         for (i = 0; i < size; i++) {
             arr[i] = i + 1;
         }
 
-        start = clock();
+        gettimeofday(&start, NULL);
         insertionSort(arr, size);
-        end = clock();
+        gettimeofday(&end, NULL);
 
         // Calcula o tempo de execução em segundos
-        cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
+        seconds = end.tv_sec - start.tv_sec;
+        useconds = end.tv_usec - start.tv_usec;
+        cpu_time_used = seconds + useconds / 1000000.0;
 
         // Escreve os dados no arquivo
         fprintf(file, "%d %f\n", size, cpu_time_used);

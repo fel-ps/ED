@@ -42,7 +42,7 @@ int main() {
     int numExecucoes = (1000 - 100) / incremento + 1;
 
     // Loop para executar o QuickSort para diferentes tamanhos de vetor
-    for (tamanhoVetor = 100; tamanhoVetor <= 1000; tamanhoVetor += incremento) {
+    for (tamanhoVetor = 100; tamanhoVetor <= 10000; tamanhoVetor += incremento) {
         int* vetor = (int*)malloc(tamanhoVetor * sizeof(int));
 
         // Preencher o vetor com valores aleatórios
