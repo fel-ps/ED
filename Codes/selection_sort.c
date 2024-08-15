@@ -21,7 +21,7 @@ void selectionSort(int arr[], int n) {
 int main() {
     int minSize = 100;
     int maxSize = 10000;
-    int increment = 100;
+    int increment = 10;
     int numIterations = (maxSize - minSize) / increment + 1;
     int dataSize, i, j;
     clock_t start, end;

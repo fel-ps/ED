@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <windows.h>
+#include <time.h>
 
 void merge(int vetor[], int comeco, int meio, int fim) {
     int com1 = comeco, com2 = meio + 1, comAux = 0, tam = fim - comeco + 1;
@@ -48,7 +48,7 @@ void mergeSort(int vetor[], int comeco, int fim) {
 }
 
 int main() {
-    LARGE_INTEGER frequency, start, end;
+    struct timespec start, end;
     FILE *file;
     char filename[] = "merge_a_time.txt";
     int i, numExecutions = 10;
@@ -66,13 +66,11 @@ int main() {
 
     fprintf(file, "# Tamanho_do_Vetor Tempo_de_Execucao\n");
 
-    QueryPerformanceFrequency(&frequency);
-
     for (int tamanho = inicio; tamanho <= fim; tamanho += incremento) {
         tamanhoArray = tamanho;
         vetor = (int*)malloc(tamanhoArray * sizeof(int));
 
-        srand(GetTickCount());
+        srand(time(NULL));
         for (int j = 0; j < tamanhoArray; j++) {
             vetor[j] = rand();
         }
@@ -80,11 +78,12 @@ int main() {
         unsigned int t_total = 0;
 
         for (i = 0; i < numExecutions; i++) {
-            QueryPerformanceCounter(&start);
+            clock_gettime(CLOCK_MONOTONIC, &start);
             mergeSort(vetor, 0, tamanhoArray - 1);
-            QueryPerformanceCounter(&end);
+            clock_gettime(CLOCK_MONOTONIC, &end);
 
-            unsigned int t = (end.QuadPart - start.QuadPart) * 1000000 / frequency.QuadPart;
+            unsigned int t = (end.tv_sec - start.tv_sec) * 1000000 + 
+                             (end.tv_nsec - start.tv_nsec) / 1000;
             t_total += t;
         }
 

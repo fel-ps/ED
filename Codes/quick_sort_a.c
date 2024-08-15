@@ -37,13 +37,21 @@ int main() {
         return 1;
     }
 
+    srand(time(NULL)); // Semente para geração de números aleatórios
+
     int tamanhoVetor;
     int incremento = 10;
-    int numExecucoes = (1000 - 100) / incremento + 1;
+
+    fprintf(arquivo, "# Tamanho_do_vetor Tempo_de_execucao(s)\n");
 
     // Loop para executar o QuickSort para diferentes tamanhos de vetor
     for (tamanhoVetor = 100; tamanhoVetor <= 10000; tamanhoVetor += incremento) {
         int* vetor = (int*)malloc(tamanhoVetor * sizeof(int));
+        if (vetor == NULL) {
+            printf("Erro ao alocar memória.\n");
+            fclose(arquivo);
+            return 1;
+        }
 
         // Preencher o vetor com valores aleatórios
         for (int i = 0; i < tamanhoVetor; i++) {
