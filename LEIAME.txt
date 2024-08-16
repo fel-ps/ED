@@ -11,7 +11,7 @@ Para todos os algoritmos, os comandos de compilação e execução são os mesmo
    gcc -c -Wall "nome_do_algoritmo.c"
 
 2. Compilação do teste:
-   gcc -c "nome_para_o_teste.c" ."nome_do_algoritmo.o"
+   gcc -c "nome_para_o_teste.c" -o "nome_do_algoritmo"
 
 3. Execução do algoritmo para gerar o arquivo executável tipo TXT:
    ./"nome_do_algoritmo.o"
