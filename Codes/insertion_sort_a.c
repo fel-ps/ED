@@ -7,7 +7,6 @@ void insertionSort(int arr[], int size) {
     for (i = 1; i < size; i++) {
         key = arr[i];
         j = i - 1;
-
         while (j >= 0 && arr[j] > key) {
             arr[j + 1] = arr[j];
             j = j - 1;
@@ -36,7 +35,7 @@ int main() {
 
     fprintf(file, "# Tamanho_do_vetor Tempo_de_execucao\n");
 
-    for (int size = 100; size <= 10000; size += 100) {
+    for (int size = 100; size <= 10000; size += 10) {
         int* arr = (int*)malloc(size * sizeof(int));
         if (arr == NULL) {
             printf("Erro ao alocar memória.\n");

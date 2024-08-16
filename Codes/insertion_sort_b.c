@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
-// Função para realizar o Insertion Sort
 void insertionSort(int arr[], int n) {
     int i, key, j;
     for (i = 1; i < n; i++) {
@@ -31,7 +30,7 @@ int main() {
     }
 
     // Loop para diferentes tamanhos de vetor
-    for (size = 100; size <= 10000; size += 100) {
+    for (size = 100; size <= 10000; size += 10) {
         int *arr = (int *)malloc(size * sizeof(int));
         if (arr == NULL) {
             fprintf(stderr, "Erro ao alocar memória.\n");
