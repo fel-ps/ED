@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/time.h>
 #include <time.h>
 
 void trocar(int* a, int* b) {
@@ -36,6 +37,19 @@ void generateBestCase(int arr[], int size) {
     }
 }
 
+// Função para medir o tempo de execução em microssegundos
+// long long measureTime() {
+//     struct timeval tv;
+//     gettimeofday(&tv, NULL);
+//     return ((long long)tv.tv_sec) * 1000000 + tv.tv_usec;
+// }
+
+long long measureTime() {
+    struct timeval time;
+    gettimeofday(&time, NULL);
+    return (long long)(time.tv_sec * 1000LL + time.tv_usec / 1000LL);  // Converte para milissegundos
+}
+
 int main() {
     FILE *file = fopen("quick_best_case_time.txt", "w");
     
@@ -46,11 +60,9 @@ int main() {
     
     fprintf(file, "# Tamanho_do_vetor Tempo_de_execucao(s)\n");
 
-    int start_size = 100;
     int end_size = 10000;
-    int increment = 10;
     
-    for (int size = start_size; size <= end_size; size += increment) {
+    for (int size = 100; size <= end_size; size += 10) {
         int* arr = (int*)malloc(size * sizeof(int));
         if (arr == NULL) {
             printf("Falha ao alocar memória.\n");
@@ -60,13 +72,13 @@ int main() {
 
         generateBestCase(arr, size);
         
-        clock_t start = clock();
+        long long start = measureTime();
         quickSort(arr, 0, size - 1);
-        clock_t end = clock();
+        long long end = measureTime();
         
-        double elapsed_time = (double)(end - start) / CLOCKS_PER_SEC;
+        long long elapsed_time = end - start;
         
-        fprintf(file, "%d %lf\n", size, elapsed_time);
+        fprintf(file, "%d %lld\n", size, elapsed_time);
         
         free(arr);
     }
